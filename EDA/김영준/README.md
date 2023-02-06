@@ -4,5 +4,6 @@
 
 2. NaN값 관련 -> [노션링크](https://www.notion.so/EDA2-bd3d5a338aed4dd69d9f858edb3c8e26)
 
-3. Target 관련 -> [노션링크](https://www.notion.so/EDA2-bd3d5a338aed4dd69d9f858edb3c8e26)
+3. Target 관련 -> [노션링크](https://www.notion.so/Target-Selection-Loss-952f3b494f9d4947abc9aa84be64fa99)
 -> Result : Y_Quality를 target으로 한 후 threshold를 기준으로 classification하는 방법이 best
+
