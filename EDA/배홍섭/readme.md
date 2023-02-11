@@ -12,3 +12,4 @@
 
 3. 중복 feature 제거 + 변수선택법으로 feature dimension 좀 줄이면 성능이 향상될 수 도
 4. CTGAN으로 data augument 생각
+- https://github.com/sdv-dev/CTGAN
