@@ -199,8 +199,8 @@ def objective(trial):
     y_valid = pd.DataFrame(y_valid,columns = ['Y_Quality'])
     y_valid = y_valid.reset_index(drop = True)
     y_valid['Y_Class2'] = 1
-    y_valid.loc[(y_valid['Y_Quality']<0.52507), 'Y_Class2'] = 0
-    y_valid.loc[(y_valid['Y_Quality']>0.5349), 'Y_Class2'] = 2
+    y_valid.loc[(y_valid['Y_Quality']<-0.64421190232267), 'Y_Class2'] = 0
+    y_valid.loc[(y_valid['Y_Quality']>-0.6256814053066195), 'Y_Class2'] = 2
     score = f1_score(valid_class, y_valid['Y_Class2'], average = 'macro')
     print('Score : %lf'%score)
     return score
