@@ -22,8 +22,8 @@ def seed_everything(seed):
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
 seed_everything(37) # Seed 고정
-train = pd.read_csv('./train.csv')
-test = pd.read_csv('./test.csv')
+train = pd.read_csv('./DATA/train.csv')
+test = pd.read_csv('./DATA/test.csv')
 
 
 
@@ -136,8 +136,8 @@ testA_31_x_fe = testA_31_x
 
 trainA_31_1 = trainA_31_fe[(trainA_31_fe['LINE'] == 'T050304') | (trainA_31_fe['LINE'] == 'T010305') | (trainA_31_fe['LINE'] == 'T010306')]
 trainA_31_2 = trainA_31_fe[(trainA_31_fe['LINE'] == 'T050307')]
-testA_31_1 = testA_31_x_fe[(testA_31_x_fe['LINE'] == 'T050304') | (testA_31_x_fe['LINE'] == 'T010305') | (testA_31_x_fe['LINE'] == 'T010306')]
-testA_31_2 = testA_31_x_fe[(testA_31_x_fe['LINE'] == 'T050307')]
+testA_31_x_1 = testA_31_x_fe[(testA_31_x_fe['LINE'] == 'T050304') | (testA_31_x_fe['LINE'] == 'T010305') | (testA_31_x_fe['LINE'] == 'T010306')]
+testA_31_x_2 = testA_31_x_fe[(testA_31_x_fe['LINE'] == 'T050307')]
 
 trainA_31_x_1 = trainA_31_1.drop(['Y_Quality'],axis=1)
 trainA_31_y_1 = trainA_31_1['Y_Quality']
@@ -153,6 +153,7 @@ trainA_31_x_2,testA_31_x_2 = labelencoder(trainA_31_x_2,testA_31_x_2,['LINE'])
 trainA_31_x_1,testA_31_x_1 = fillna(trainA_31_x_1,testA_31_x_1,-1)
 trainA_31_x_2,testA_31_x_2 = fillna(trainA_31_x_2,testA_31_x_2,-1)
 
+print(trainA_31_x_2.columns)
 
 
 
@@ -161,6 +162,16 @@ from catboost import *
 
 kfold = StratifiedKFold(n_splits=10, shuffle=True)
 
+
+copy_1 = trainA_31_x_1['Y_Class']
+copy_2 = trainA_31_x_2['Y_Class']
+trainA_31_x_1.drop(['Y_Class'],axis=1,inplace=True)
+trainA_31_x_2.drop(['Y_Class'],axis=1,inplace=True)
+print(len(trainA_31_x_1))
+print(len(trainA_31_y_1))
+
+print(len(trainA_31_x_2))
+print(len(trainA_31_y_2))
 
 def objective(trial):
     params = {
@@ -181,12 +192,13 @@ def objective(trial):
     #'task_type' : 'GPU',
     #"eval_metric":'RMSE',
 
-    valid_class = trainA_31_y_2['Y_Class']
+    valid_class = copy_2
     valid_class = pd.DataFrame(valid_class,columns = ['Y_Class'])
     valid_class = valid_class.reset_index(drop = True)
-    
-    x_train.drop(['Y_Class'],axis=1,inplace=True)
-    x_valid.drop(['Y_Class'],axis=1,inplace=True)
+    '''
+    trainA_31_x_1.drop(['Y_Class'],axis=1,inplace=True)
+    trainA_31_x_2.drop(['Y_Class'],axis=1,inplace=True)
+    '''
     cat = CatBoostRegressor(**params)
     cat.fit(trainA_31_x_1, trainA_31_y_1, 
               verbose=False)
