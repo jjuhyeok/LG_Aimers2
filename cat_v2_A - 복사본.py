@@ -22,8 +22,8 @@ def seed_everything(seed):
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
 seed_everything(37) # Seed 고정
-train = pd.read_csv('\\Users\\ineeji\\Desktop\\새 폴더\\Ai\\LG_Aimers2\\DATA\\train.csv')
-test = pd.read_csv('\\Users\\ineeji\\Desktop\\새 폴더\\Ai\\LG_Aimers2\\DATA\\test.csv')
+train = pd.read_csv('/Users/jeonjuhyeog/Documents/LG_Aimers2/DATA/train.csv')
+test = pd.read_csv('/Users/jeonjuhyeog/Documents/LG_Aimers2/DATA/test.csv')
 
 
 
